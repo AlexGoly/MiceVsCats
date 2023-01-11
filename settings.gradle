@@ -1,1 +1,3 @@
-rootProject.name = 'MiceVsCats'
+rootProject.name = 'mice-vs-cats'
+include 'cats-service'
+
