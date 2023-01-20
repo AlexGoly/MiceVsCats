@@ -1,0 +1,16 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cats-service
+          uri: http://localhost:8091/
+          predicates:
+            - Path=/**

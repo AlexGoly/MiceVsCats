@@ -1,29 +1,32 @@
 package ua.micevscats.cats.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.*;
+import lombok.*;
+
 
 @Entity
 @Table(name = "cat")
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Tag(name="Cat", description="Cat")
 public class Cat {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    private  String name;
-    private  String age;
-    private  String color;
-    private  String  normalSpeed;
-    private  String  jumpSpeed;
-    private  String  agility;
-    private  String  eyesight;
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "id", nullable = false)
+//    private Cat cat;
+    private String name;
+    private double age;
+    private String color;
+    private double normalSpeed;
+    private double jumpSpeed;
+    private int agility;
+    private double eyesight;
 }

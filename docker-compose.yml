@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+#  cats-service:
+#    build:
+#      context: ./cats-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8091:8091"
+#    depends_on:
+#      - postgres
+
+  postgres:
+    image: "postgres:15.1"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "catsdb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345678"
+    volumes:
+      - ./_database/postgres/init:/docker-entrypoint-initdb.d/*
+      - ./_database/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+#  gateway:
+#    build:
+#      context: ./api-gateway
+#      dockerfile: Dockerfile
+#    ports:
+#      - 8765:8765
+#    environment:
+#      - DISCOVERY_URL=http://discovery:8761
+#    links:
+#      - discovery
+#      - authors
+#      - authors_two
+#      - articles
+#      - articles_two
+#    depends_on:
+#      - discovery

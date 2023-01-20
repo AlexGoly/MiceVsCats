@@ -1,3 +1,4 @@
 rootProject.name = 'mice-vs-cats'
 include 'cats-service'
+include 'api-gateway'
 
