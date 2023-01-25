@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:8092}
+
+spring:
+  application:
+    name: mice-hunt-service
+  jpa:
+    show-sql: true
+    #      ToDo:set none in production
+    hibernate:
+      ddl-auto: update
+    #          ddl-auto: "validate"
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: "jdbc:postgresql://${DATABASE_HOST_IP:localhost}:${DATABASE_HOST_PORT:5432}/catsdb"
+    username: "postgres"
+    password: "12345678"
+    driver-class-name: "org.postgresql.Driver"
+  logging:
+    level:
+      org.springframework: INFO
+      org.hibernate: DEBUG
+      ua.micevscats.cats: DEBUG
+
+#springdoc:
+#  swagger-ui:
+#    enabled: true
+#    path: "/swagger-ui-custom.html"

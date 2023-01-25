@@ -1,4 +1,8 @@
 rootProject.name = 'mice-vs-cats'
 include 'cats-service'
 include 'api-gateway'
+include 'mice-hunt-service'
+include 'mice-moving-service'
+include 'report-service'
+include 'settings-service'
 

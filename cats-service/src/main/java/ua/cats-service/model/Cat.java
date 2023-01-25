@@ -10,18 +10,14 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-//@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Tag(name="Cat", description="Cat")
+@Tag(name = "Cat", description = "Cat")
 public class Cat {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "id", nullable = false)
-//    private Cat cat;
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
     private double age;
     private String color;
@@ -29,4 +25,5 @@ public class Cat {
     private double jumpSpeed;
     private int agility;
     private double eyesight;
+
 }
