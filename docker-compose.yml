@@ -10,7 +10,7 @@ services:
 #    depends_on:
 #      - postgres
 
-  postgres:
+  postgres-cats:
     image: "postgres:15.1"
     restart: unless-stopped
     environment:
@@ -21,7 +21,22 @@ services:
       - ./_database/postgres/init:/docker-entrypoint-initdb.d/*
       - ./_database/postgres/data:/var/lib/postgresql/data
     ports:
+      - "5433:5432"
+    container_name: "postgres-cats"
+
+  postgres-mice:
+    image: "postgres:15.1"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "micedb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345678"
+    volumes:
+      - ./_databasemice/postgres/init:/docker-entrypoint-initdb.d/*
+      - ./_databasemice/postgres/data:/var/lib/postgresql/data
+    ports:
       - "5432:5432"
+    container_name: "postgres-mice"
 #  gateway:
 #    build:
 #      context: ./api-gateway

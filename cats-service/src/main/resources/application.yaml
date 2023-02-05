@@ -15,7 +15,7 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: "jdbc:postgresql://${DATABASE_HOST_IP:localhost}:${DATABASE_HOST_PORT:5432}/catsdb"
+    url: "jdbc:postgresql://${DATABASE_HOST_IP:localhost}:${DATABASE_HOST_PORT:5433}/catsdb"
     username: "postgres"
     password: "12345678"
     driver-class-name: "org.postgresql.Driver"

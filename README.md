@@ -40,3 +40,10 @@ Maybe we want to have a BI system in the future
 ### Project architecture
 ![img.png](resources/img.png)
 
+
+
+## Build project
+docker-compose up
+./gradlew wrapper
+./gradlew clean build bootRun
+

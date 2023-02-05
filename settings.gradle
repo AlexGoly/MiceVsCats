@@ -5,4 +5,5 @@ include 'mice-hunt-service'
 include 'mice-moving-service'
 include 'report-service'
 include 'settings-service'
+include 'mice-service'
 
