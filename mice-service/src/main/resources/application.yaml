@@ -1,9 +1,9 @@
 server:
-  port: ${PORT:8091}
+  port: ${PORT:8093}
 
 spring:
   application:
-    name: cats-service
+    name: mice-service
   jpa:
     show-sql: true
     #      ToDo:set none in production
@@ -15,7 +15,7 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: "jdbc:postgresql://${DATABASE_HOST_IP:localhost}:${DATABASE_HOST_PORT:5433}/catsdb"
+    url: "jdbc:postgresql://${DATABASE_HOST_IP:localhost}:${DATABASE_HOST_PORT:5432}/micedb"
     username: "postgres"
     password: "12345678"
     driver-class-name: "org.postgresql.Driver"

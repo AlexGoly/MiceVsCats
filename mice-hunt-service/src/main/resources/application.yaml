@@ -1,9 +1,9 @@
 server:
-  port: ${PORT:8091}
+  port: ${PORT:8092}
 
 spring:
   application:
-    name: cats-service
+    name: mice-hunt-service
   jpa:
     show-sql: true
     #      ToDo:set none in production
@@ -21,9 +21,9 @@ spring:
     driver-class-name: "org.postgresql.Driver"
   logging:
     level:
-      org.springframework: INFO
+      org.springframework: DEBUG
       org.hibernate: DEBUG
-      ua.micevscats.cats: DEBUG
+      ua.micehunt: DEBUG
 
 #springdoc:
 #  swagger-ui:

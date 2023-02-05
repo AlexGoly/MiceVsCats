@@ -1,4 +1,4 @@
-create DATABASE catsdb;
+create DATABASE if not exists catsdb;
 \c catsdb;
 --CREATE EXTENSION IF NOT EXISTS plpgsql;
 create table if not exists cat
