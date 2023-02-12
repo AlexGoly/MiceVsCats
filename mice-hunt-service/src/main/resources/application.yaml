@@ -21,11 +21,7 @@ spring:
     driver-class-name: "org.postgresql.Driver"
   logging:
     level:
-      org.springframework: DEBUG
+      org.springframework: INFO
       org.hibernate: DEBUG
       ua.micehunt: DEBUG
 
-#springdoc:
-#  swagger-ui:
-#    enabled: true
-#    path: "/swagger-ui-custom.html"

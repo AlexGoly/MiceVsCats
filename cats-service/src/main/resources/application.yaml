@@ -23,9 +23,4 @@ spring:
     level:
       org.springframework: INFO
       org.hibernate: DEBUG
-      ua.micevscats.cats: DEBUG
-
-#springdoc:
-#  swagger-ui:
-#    enabled: true
-#    path: "/swagger-ui-custom.html"
+      ua.cats: DEBUG

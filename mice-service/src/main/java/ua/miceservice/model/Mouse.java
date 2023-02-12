@@ -22,5 +22,5 @@ public class Mouse {
     private double normalSpeed;
     private double topSpeed;
     private int reproductiveRate;
-    private boolean isDead;
+    private Boolean isDead;
 }

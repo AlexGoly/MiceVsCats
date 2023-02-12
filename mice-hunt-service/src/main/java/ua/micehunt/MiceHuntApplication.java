@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages ="ua.micehunt" )
+@SpringBootApplication
 //@EntityScan("ua.miceservice.model")
 //@EnableJpaRepositories("ua.miceservice.repository")
 @OpenAPIDefinition(info = @Info(title = "Mice hunt service",

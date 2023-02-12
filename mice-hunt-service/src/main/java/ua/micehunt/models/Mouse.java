@@ -1,7 +1,6 @@
 package ua.micehunt.models;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -18,6 +17,6 @@ public class Mouse {
     private double normalSpeed;
     private double topSpeed;
     private int reproductiveRate;
-    private boolean isDead;
+    private Boolean isDead;
 }
 

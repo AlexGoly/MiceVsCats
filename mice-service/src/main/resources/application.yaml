@@ -23,7 +23,7 @@ spring:
     level:
       org.springframework: INFO
       org.hibernate: DEBUG
-      ua.micevscats.cats: DEBUG
+      ua.miceservice.: DEBUG
 
 #springdoc:
 #  swagger-ui:

@@ -10,8 +10,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-//@NoArgsConstructor
-//@AllArgsConstructor
 @RequiredArgsConstructor
 @Tag(name = "Cat", description = "Cat")
 public class Cat {

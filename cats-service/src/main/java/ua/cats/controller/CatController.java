@@ -16,7 +16,6 @@ import java.util.List;
 public class CatController {
     @Autowired
     CatRepository catRepository;
-
     @GetMapping
     public List<Cat> getCats() {
         return catRepository.findAll();
@@ -41,7 +40,6 @@ public class CatController {
         Cat currentCat = catRepository.findById(id).orElseThrow(RuntimeException::new);
         currentCat.setName(cat.getName());
         currentCat = catRepository.save(cat);
-
         return ResponseEntity.ok(currentCat);
     }
     @DeleteMapping("/{id}")
