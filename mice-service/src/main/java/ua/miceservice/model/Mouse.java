@@ -8,19 +8,21 @@ import lombok.*;
 @Table(name = "mice")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Tag(name = "Mouse", description = "Mouse")
 public class Mouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "age", nullable = false)
-    private int age;
+    private Integer age;
     private String color;
-    private double normalSpeed;
-    private double topSpeed;
-    private int reproductiveRate;
+    private Double normalSpeed;
+    private Double topSpeed;
+    private Integer reproductiveRate;
     private Boolean isDead;
+    @Column(name = "killer_id")
+    private Long killerId;
+    //ToDo: What type is usable in Entity primitive or  object wrapper
 }

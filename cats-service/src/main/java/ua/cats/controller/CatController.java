@@ -36,7 +36,7 @@ public class CatController {
     @PutMapping("/{id}")
     @Operation(summary = "Rename cat", description = "Update cat name")
     public ResponseEntity updateCat(@PathVariable Long id, @RequestBody Cat cat) {
-        //ToDo Customise exception
+        //ToDo; Customise exception
         Cat currentCat = catRepository.findById(id).orElseThrow(RuntimeException::new);
         currentCat.setName(cat.getName());
         currentCat = catRepository.save(cat);

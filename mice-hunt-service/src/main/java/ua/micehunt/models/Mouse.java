@@ -1,6 +1,7 @@
 package ua.micehunt.models;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.Column;
 import lombok.*;
 
 
@@ -11,12 +12,14 @@ import lombok.*;
 @AllArgsConstructor
 @Tag(name = "Mouse", description = "Mouse")
 public class Mouse {
-    private long id;
-    private int age;
+    private Long id;
+    private Integer age;
     private String color;
-    private double normalSpeed;
-    private double topSpeed;
-    private int reproductiveRate;
+    private Double normalSpeed;
+    private Double topSpeed;
+    private Integer reproductiveRate;
     private Boolean isDead;
+    @Column(name = "killer_id")
+    private Long killerId;
 }
 
