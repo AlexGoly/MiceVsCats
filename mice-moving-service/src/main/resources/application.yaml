@@ -1,6 +1,9 @@
 server:
   port: ${PORT:8094}
 
+spring:
+  application:
+    name: mice-moving-service
 
   logging:
     level:

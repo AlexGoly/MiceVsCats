@@ -32,14 +32,14 @@ public class MouseController {
 
     @PostMapping
     @Operation(summary = "Create mouse")
-    public ResponseEntity createMouse(@RequestBody Mouse mouse) throws URISyntaxException {
+    public ResponseEntity<Mouse> createMouse(@RequestBody Mouse mouse) throws URISyntaxException {
         Mouse savedMouse = miceRepository.save(mouse);
         return ResponseEntity.created(new URI("/mice/" + savedMouse.getId())).body(savedMouse);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete mouse")
-    public ResponseEntity deleteMouse(@PathVariable Long id) {
+    public ResponseEntity<Mouse> deleteMouse(@PathVariable Long id) {
         miceRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
@@ -48,6 +48,13 @@ public class MouseController {
     public ResponseEntity<Mouse> killMouse(@PathVariable Long id) {
         Mouse mouseAlive = miceRepository.findById(id).orElseThrow();
         mouseAlive.setIsDead(true);
+        Mouse mouseDead = miceRepository.save(mouseAlive);
+        return new ResponseEntity<>(mouseDead, HttpStatus.OK);
+    }
+    @PutMapping("/{mouseId}/killer/{killerId}")
+    public ResponseEntity<Mouse> setMouseKillerId(@PathVariable Long mouseId,@PathVariable Long killerId) {
+        Mouse mouseAlive = miceRepository.findById(mouseId).orElseThrow();
+        mouseAlive.setKillerId(killerId);
         Mouse mouseDead = miceRepository.save(mouseAlive);
         return new ResponseEntity<>(mouseDead, HttpStatus.OK);
     }

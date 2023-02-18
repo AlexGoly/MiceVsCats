@@ -19,12 +19,12 @@ public class HuntController {
     @GetMapping("/mice")
     public ResponseEntity<Optional<Collection<Mouse>>> searchForMice() {
         Optional<Collection<Mouse>> mice = huntService.searchForAllMice();
-        return new ResponseEntity<>(mice, HttpStatus.OK);
+        return new ResponseEntity<>(mice,HttpStatus.OK);
     }
 
     @GetMapping("/mice/mouse/{mouseId}/catch")
     public ResponseEntity<Optional<Mouse>> catchMouse(@PathVariable Long mouseId) {
-        Optional<Mouse> cachedMouse = huntService.catchMouse(mouseId);
+        Optional<Mouse> cachedMouse = huntService.getMouse(mouseId);
         return new ResponseEntity<>(cachedMouse, HttpStatus.OK);
     }
 

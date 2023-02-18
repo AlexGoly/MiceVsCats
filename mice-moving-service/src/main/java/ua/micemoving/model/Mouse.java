@@ -1,8 +1,7 @@
-package ua.micehunt.models;
+package ua.micemoving.model;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.*;
-
 
 @Getter
 @Setter
@@ -19,7 +18,7 @@ public class Mouse {
     private Integer reproductiveRate;
     private Boolean isDead;
     private Long killerId;
-    private Integer latitude;
-    private Integer longitude;
+    private int latitude;
+    private int longitude;
 }
 

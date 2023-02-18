@@ -1,13 +1,14 @@
 package ua.micehunt.services;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.micehunt.models.Cat;
 import ua.micehunt.models.Mouse;
+import ua.micehunt.services.okhttp.OkHttpCatsImpl;
+import ua.micehunt.services.okhttp.OkHttpMiceImpl;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
@@ -17,109 +18,72 @@ import static ua.micehunt.services.Constants.*;
 @Service
 @RequiredArgsConstructor
 public class HuntService {
+    @Autowired
+    OkHttpMiceImpl okHttpMice;
+    @Autowired
+    OkHttpCatsImpl okHttpCats;
+
     public Optional<Collection<Mouse>> searchForAllMice() {
         Type collectionType = new TypeToken<Collection<Mouse>>() {
         }.getType();
-        Collection<Mouse> mice = okHttpGet(HTTP_LOCALHOST_8093_MICE, collectionType);
+        Collection<Mouse> mice = okHttpMice.okHttpGetCollection(GET_ALL_MICE, collectionType);
         Optional<Collection<Mouse>> mouseListOptional = Optional.of(mice);
         return mouseListOptional;
     }
 
-    public Optional<Mouse> catchMouse(Long mouseId) {
-        String str = String.format(HTTP_LOCALHOST_8093_MOUSE_BY_ID + mouseId);
+    public Optional<Mouse> getMouse(Long mouseId) {
+        String url = String.format(GET_MOUSE_BY_ID + mouseId + "/catch");
         Type collectionType = new TypeToken<Mouse>() {
         }.getType();
-        Mouse mice = okHttpGetMouse(str, collectionType);
-        Optional<Mouse> mouseListOptional = Optional.of(mice);
-        return mouseListOptional;
-    }
-
-    public Optional<Mouse> killMouse(Long mouseId) {
-        String url = String.format(HTTP_LOCALHOST_8093_MOUSE_BY_ID + mouseId);
-        Type collectionType = new TypeToken<Mouse>() {
-        }.getType();
-        Mouse mouse = okHttpPut(url, collectionType);
-        Optional<Mouse> mouseOptional = Optional.of(mouse);
+        Mouse mice = okHttpMice.okHttpGet(url, collectionType);
+        Optional<Mouse> mouseOptional = Optional.of(mice);
         return mouseOptional;
     }
 
-    public Collection<Mouse> okHttpGet(String url, Type collectionType) {
-        Collection<Mouse> collection;
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .get()
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-            Gson gson = new Gson();
-            collection = gson.fromJson(responseBody, collectionType);
-        } catch (IOException e) {
-            //ToDo:Handle
-            throw new RuntimeException(e);
-        }
-        return collection;
+    public Optional<Mouse> killMouse(Long mouseId) {
+        String url = String.format(GET_MOUSE_BY_ID + mouseId + "/kill");
+        Type collectionType = new TypeToken<Mouse>() {
+        }.getType();
+        Mouse mouse = okHttpMice.okHttpPut(url, collectionType);
+        Optional<Mouse> mouseOptional = Optional.of(mouse);
+        return mouseOptional;
+    }
+    public Optional<Collection<Cat>> searchForAllCats() {
+        Type collectionType = new TypeToken<Collection<Cat>>() {
+        }.getType();
+        Collection<Cat> cats = okHttpCats.okHttpGetCollection(GET_ALL_CATS, collectionType);
+        Optional<Collection<Cat>> catsListOptional = Optional.of(cats);
+        return catsListOptional;
+    }
+    public Optional<Cat> selectCat(Long catId) {
+        String url = String.format(GET_CAT_BY_ID + catId);
+        Type collectionType = new TypeToken<Cat>() {
+        }.getType();
+        Cat cat = okHttpCats.okHttpGet(url, collectionType);
+        Optional<Cat> catOptional = Optional.of(cat);
+        return catOptional;
     }
 
-
-    public Mouse okHttpGetMouse(String url, Type collectionType) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .get()
-                .build();
-        Mouse mouse;
-        try {
-            Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-            Gson gson = new Gson();
-            mouse = gson.fromJson(responseBody, collectionType);
-        } catch (IOException e) {
-            //ToDo:Handle
-            throw new RuntimeException(e);
-        }
-        return mouse;
+    public Optional<Collection<Mouse>> searchSpottedMice(Long catId) {
+        String url = String.format(GET_SPOTTED_MICE_ + catId + SPOTTED_MICE);
+        Type collectionType = new TypeToken<Collection<Mouse>>() {
+        }.getType();
+        Collection<Mouse> spottedMice = okHttpMice.okHttpGetCollection(url, collectionType);
+        Optional<Collection<Mouse>> miceSpottedOptional = Optional.of(spottedMice);
+        return miceSpottedOptional;
     }
 
-    public Mouse okHttpPost(String url, Type collectionType) {
-        Mouse mice;
-        OkHttpClient client = new OkHttpClient();
-        MediaType mediaType = MediaType.parse("text/plain");
-        String requestBody = String.valueOf(Mouse.class);
-        RequestBody body = RequestBody.create(mediaType, requestBody);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-            Gson gson = new Gson();
-            mice = gson.fromJson(responseBody, collectionType);
-        } catch (IOException e) {
-            //ToDo:Handle
-            throw new RuntimeException(e);
-        }
-        return mice;
+    public boolean catchSelectedMouse(Optional<Cat> cat, Mouse selectedMouse) {
+        return true;
     }
 
-    public Mouse okHttpPut(String url, Type collectionType) {
-        String responseBody;
-        OkHttpClient client = new OkHttpClient();
-        MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create(mediaType, "");
-        Request request = new Request.Builder()
-                .url(url)
-                .method("PUT", body)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            responseBody = response.body().string();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Gson gson = new Gson();
-        return gson.fromJson(responseBody, collectionType);
+    public Optional<Mouse> setMouseKiller(Long selectedMouseId, Long catId) {
+        String url = String.format(SET_MOUSE_KILLER_, selectedMouseId, catId);
+        Type collectionType = new TypeToken<Mouse>() {
+        }.getType();
+        Mouse mouse = okHttpMice.okHttpPost(url, collectionType);
+        Optional<Mouse> mouseOptional = Optional.of(mouse);
+        return mouseOptional;
+
     }
 }
