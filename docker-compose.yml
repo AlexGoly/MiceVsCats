@@ -14,12 +14,12 @@ services:
     image: "postgres:15.1"
     restart: unless-stopped
     environment:
-      POSTGRES_DB: "catsdb"
+      POSTGRES_DB: "cats_database"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "12345678"
     volumes:
-      - ./_database/postgres/init:/docker-entrypoint-initdb.d/*
-      - ./_database/postgres/data:/var/lib/postgresql/data
+      - ./_databases/cats/init:/docker-entrypoint-initdb.d
+      - cats_database:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     container_name: "postgres-cats"
@@ -28,15 +28,22 @@ services:
     image: "postgres:15.1"
     restart: unless-stopped
     environment:
-      POSTGRES_DB: "micedb"
+      POSTGRES_DB: "mice_database"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "12345678"
     volumes:
-      - ./_databasemice/postgres/init:/docker-entrypoint-initdb.d/*
-      - ./_databasemice/postgres/data:/var/lib/postgresql/data
+      - ./_databases/mice/init:/docker-entrypoint-initdb.d
+      - mice_database:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5434:5432"
     container_name: "postgres-mice"
+
+volumes:
+  cats_database:
+    external: true
+  mice_database:
+    external: true
+
 #  gateway:
 #    build:
 #      context: ./api-gateway
