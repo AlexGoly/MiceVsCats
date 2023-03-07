@@ -12,20 +12,20 @@ import ua.micehunt.services.HuntService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @RestController("endpoint")
-@RequestMapping("/api/v1/cats")
+@RequestMapping("/api/v1/hunter/cats")
 public class CatsController {
     @Autowired
     private HuntService huntService;
 
     @GetMapping
     @Operation(summary = "Get all cats")
-    public ResponseEntity<Optional<Collection<Cat>>> searchForCats() {
-        Optional<Collection<Cat>> cats = huntService.searchForAllCats();
+    public ResponseEntity<Optional<List<Cat>>> searchForCats() {
+        Optional<List<Cat>> cats = huntService.searchForAllCats();
         return new ResponseEntity<>(cats, HttpStatus.OK);
     }
 
@@ -38,8 +38,8 @@ public class CatsController {
 
     @GetMapping("/{catId}/spotted/mice")
     @Operation(summary = "Returns a spotted mice list with coordinates")
-    public ResponseEntity<Optional<Collection<Mouse>>> getMiceSpottedCat(@PathVariable Long catId) {
-        Optional<Collection<Mouse>> spottedMice = huntService.searchSpottedMice(catId);
+    public ResponseEntity<Optional<List<Mouse>>> getMiceSpottedCat(@PathVariable Long catId) {
+        Optional<List<Mouse>> spottedMice = huntService.searchSpottedMice(catId);
         return new ResponseEntity<>(spottedMice, HttpStatus.OK);
     }
 
@@ -51,16 +51,13 @@ public class CatsController {
                                                              @RequestBody Mouse selectedMouse) throws URISyntaxException {
         Long selectedMouseId = selectedMouse.getId();
         Optional<Cat> cat = huntService.selectCat(catId);
-        boolean isMouse = huntService.catchSelectedMouse(cat, selectedMouse);
-        if (isMouse) {
-             huntService.killMouse(selectedMouseId);
-            Optional<Mouse> deadMouseKiller = huntService.setMouseKiller(selectedMouseId, catId);
+        boolean isCatchMouse = huntService.catchSelectedMouse(cat, selectedMouse);
+        if (isCatchMouse) {
+            Optional<Mouse> deadMouseKiller = huntService.killMouse(selectedMouseId, catId);
             return ResponseEntity.created(new URI("/" + selectedMouseId)).body(deadMouseKiller);
         } else {
             log.info(String.format("The mouse %s was stronger", selectedMouseId));
             return ResponseEntity.ok(Optional.of(selectedMouse));
         }
     }
-
-
 }

@@ -24,5 +24,4 @@ public class Mouse {
     private Boolean isDead;
     @Column(name = "killer_id")
     private Long killerId;
-    //ToDo: What type is usable in Entity primitive or  object wrapper
 }

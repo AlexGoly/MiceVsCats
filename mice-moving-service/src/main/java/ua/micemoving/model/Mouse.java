@@ -6,8 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Mouse", description = "Mouse")
 public class Mouse {
     private Long id;
@@ -18,7 +17,7 @@ public class Mouse {
     private Integer reproductiveRate;
     private Boolean isDead;
     private Long killerId;
-    private int latitude;
-    private int longitude;
+    private Integer latitude;
+    private Integer longitude;
 }
 
