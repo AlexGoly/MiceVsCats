@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-#  cats-service:
-#    build:
-#      context: ./cats-service
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8091:8091"
-#    depends_on:
-#      - postgres
+  cats-service:
+    build:
+      context: ./cats-service
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8091"
+    depends_on:
+      - postgres-cats
 
   postgres-cats:
     image: "postgres:15.1"
