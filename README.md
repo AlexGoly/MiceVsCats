@@ -38,12 +38,15 @@ We want to know how cats' properties correlate with their personal achievements.
 achievement is measured in mpt units (mice catched per time unit).
 Maybe we want to have a BI system in the future
 ### Project architecture
-![img.png](resources/img.png)
+![img.png](resources/project_architectue.png)
 
 
 
-## Build project
-docker-compose up
-./gradlew wrapper
-./gradlew clean build bootRun
+## How to use
+Run `docker volume create cats_database`
+
+Run `docker volume create mice_database`
+
+Run `docker-compose up to start`
+
 
