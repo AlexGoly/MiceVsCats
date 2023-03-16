@@ -1,10 +1,28 @@
-# Alpine because it's lighter
-FROM openjdk:17-jdk-slim
-MAINTAINER Alex Maksymov <eskander.goli@gmail.com>
+## Alpine because it's lighter
+FROM gradle:7.6.0-jdk17-alpine AS build
+#ARG version
+#ARG sourceCompatibility
+#ARG springBootVersion
+#ARG springDependencyManagementVersion
+#ARG springCloudVersion
+#ENV TZ=Europe/Kiev
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build
+#RUN gradle build  \
+#    -Pversion=${version} \
+#    -PsourceCompatibility=${sourceCompatibility} \
+#    -PspringBootVersion=${springBootVersion} \
+#    -PspringDependencyManagementVersion=${springDependencyManagementVersion} \
+#    -PspringCloudVersion=${springCloudVersion} \
+#    --no-daemon
 
-# Add JAR file and run it as entrypoint
-ADD build/libs/cats-service-0.0.1-SNAPSHOT.jar app.jar
-ADD build/resources/main/application.yaml application.yaml
+FROM openjdk:17-slim
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8091
 
+RUN mkdir /app
+
+COPY --from=build /home/gradle/src/build/libs/*SNAPSHOT.jar /app/app.jar
+
+ENTRYPOINT ["java", "-jar","/app/app.jar"]

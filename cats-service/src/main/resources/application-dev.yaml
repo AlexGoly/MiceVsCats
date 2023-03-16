@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://${DATABASE_HOST_IP:localhost}:${DATABASE_HOST_PORT:5433}/cats_database"
