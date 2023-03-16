@@ -5,9 +5,8 @@ spring:
   application:
     name: mice-hunt-service
 
-  logging:
+logging:
     level:
       org.springframework: INFO
-      org.hibernate: DEBUG
       ua.micehunt: DEBUG
 

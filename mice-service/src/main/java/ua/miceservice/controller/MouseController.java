@@ -44,16 +44,10 @@ public class MouseController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Mouse> killMouse(@PathVariable Long id) {
-        Mouse mouseAlive = miceRepository.findById(id).orElseThrow();
-        mouseAlive.setIsDead(true);
-        Mouse mouseDead = miceRepository.save(mouseAlive);
-        return new ResponseEntity<>(mouseDead, HttpStatus.OK);
-    }
-    @PutMapping("/{mouseId}/killer/{killerId}")
-    public ResponseEntity<Mouse> setMouseKillerId(@PathVariable Long mouseId,@PathVariable Long killerId) {
+    @PutMapping("/{mouseId}/kill/killer/{killerId}")
+    public ResponseEntity<Mouse> killMouse(@PathVariable Long mouseId,@PathVariable Long killerId) {
         Mouse mouseAlive = miceRepository.findById(mouseId).orElseThrow();
+        mouseAlive.setIsDead(true);
         mouseAlive.setKillerId(killerId);
         Mouse mouseDead = miceRepository.save(mouseAlive);
         return new ResponseEntity<>(mouseDead, HttpStatus.OK);

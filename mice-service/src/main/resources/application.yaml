@@ -19,7 +19,7 @@ spring:
     username: "postgres"
     password: "12345678"
     driver-class-name: "org.postgresql.Driver"
-  logging:
+logging:
     level:
       org.springframework: INFO
       org.hibernate: DEBUG
