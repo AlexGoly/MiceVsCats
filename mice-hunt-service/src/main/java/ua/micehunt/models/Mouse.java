@@ -7,8 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Mouse", description = "Mouse")
 public class Mouse {
     private Long id;

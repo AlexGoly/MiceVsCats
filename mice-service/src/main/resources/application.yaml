@@ -18,7 +18,10 @@ spring:
     username: "postgres"
     password: "12345678"
     driver-class-name: "org.postgresql.Driver"
+//<<<<<<< ISSUE-5
 
+//=======
+//>>>>>>> master
 logging:
     level:
       org.springframework: INFO

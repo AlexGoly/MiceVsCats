@@ -13,12 +13,12 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @Tag(name = "Cat", description = "Cat")
 public class Cat {
-    private long id;
+    private Long id;
     private String name;
-    private double age;
+    private Double age;
     private String color;
-    private double normalSpeed;
-    private double jumpSpeed;
-    private int agility;
-    private double eyesight;
+    private Double normalSpeed;
+    private Double jumpSpeed;
+    private Integer agility;
+    private Double eyesight;
 }
