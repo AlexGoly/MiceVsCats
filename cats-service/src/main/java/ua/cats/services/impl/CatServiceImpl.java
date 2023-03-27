@@ -3,6 +3,7 @@ package ua.cats.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.cats.dtos.CatDto;
+import ua.cats.exceptions.CatNotFoundException;
 import ua.cats.mappers.CatMapper;
 import ua.cats.persistance.entities.Cat;
 import ua.cats.persistance.repositories.CatRepository;
@@ -23,10 +24,7 @@ public class CatServiceImpl implements CatService {
     public CatDto getCat(Long id) {
 
         Cat cat = catRepository
-                .findById(id)
-                // ToDo: Handle better!!!
-                .orElseThrow(RuntimeException::new);
-
+                .findById(id).orElseThrow(() -> new CatNotFoundException(id));
         return mapper.toDto(cat);
 
     }
